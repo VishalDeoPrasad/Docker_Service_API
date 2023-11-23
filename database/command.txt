@@ -1,0 +1,18 @@
+--> to start the postgres server
+docker run -d --name postgres -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=postgres -e POSTGRES_DB=NewServiceAPI -p 5433:5432 postgres
+
+--> to start the postgres server on single container
+docker run -d --name postgres -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=postgres -e POSTGRES_DB=NewServiceAPI --network=job-portal -p 5433:5432 postgres
+docker container run --name job-portal-api -d --network=job-portal job-portal-api
+
+--> to build the image
+docker build -t job_protal:latest . 
+
+--> to run the image in specific port
+docker container run --name job-portal-api -d --network=job-portal -p 8080:8080 job-portal-api
+
+--> to run the image that we build
+docker container run --name job-portal-api -d --network=host job-portal-api
+
+--> to crate network
+docker network create job-portal

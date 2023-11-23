@@ -1,0 +1,32 @@
+version: "3"
+ 
+services:
+  job-portal:
+    container_name: job-portal-api
+    image: "job-portal-api"
+    ports:
+      - "8080:8080"
+    build: .
+    env_file:
+      - .env
+      - .auth.env
+    depends_on:
+      - postgres
+    restart: always
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    env_file:
+      - .db.env
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=NewServiceAPI
+
+
+#Docker Compose is important because it simplifies the management of multi-container applications, 
+#allowing you to define, configure, and run complex software stacks easily in a single file. 
+#It enhances portability, scalability, and consistency across different environments.
